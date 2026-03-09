@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>서정호 | LINE NEXT 제안</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+  /* ── DARK MODE ── */
+  :root, [data-theme="dark"] {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e28;
+    --border: rgba(255,255,255,0.07);
+    --border-subtle: rgba(255,255,255,0.03);
+    --text: #e8eaf0;
+    --text-sub: #c9d1e8;
+    --text-muted: #9ca3af;
+    --muted: #6b7280;
+    --accent-blue: #4f8ef7;
+    --accent-green: #34d399;
+    --accent-purple: #a78bfa;
+    --accent-amber: #fbbf24;
+    --accent-teal: #2dd4bf;
+    --accent-pink: #f472b6;
+    --title-em: #8ba8e8;
+    --core-bg: linear-gradient(135deg, rgba(79,142,247,0.07), rgba(45,212,191,0.04));
+    --core-border: rgba(79,142,247,0.18);
+    --asset-bg: rgba(255,255,255,0.02);
+    --asset-border: rgba(255,255,255,0.04);
+    --glow-color: rgba(79,142,247,0.08);
+    --grid-color: rgba(79,142,247,0.025);
+    --footer-color: #2d3748;
+    --nav-bg: #13161e;
+    --nav-border: rgba(255,255,255,0.07);
+    --nav-active-bg: rgba(79,142,247,0.15);
+    --nav-active-border: rgba(79,142,247,0.4);
+    --nav-active-text: #4f8ef7;
+    --toggle-bg: #1a1e28;
+    --toggle-border: rgba(255,255,255,0.1);
+    --positioning-bg: linear-gradient(135deg, rgba(79,142,247,0.08), rgba(167,139,250,0.06));
+    --positioning-border: rgba(79,142,247,0.2);
+  }
+
+  /* ── LIGHT MODE ── */
+  [data-theme="light"] {
+    --bg: #f5f6fa;
+    --surface: #ffffff;
+    --surface2: #f0f2f8;
+    --border: rgba(0,0,0,0.08);
+    --border-subtle: rgba(0,0,0,0.04);
+    --text: #111827;
+    --text-sub: #1e2a45;
+    --text-muted: #4b5563;
+    --muted: #9ca3af;
+    --accent-blue: #2563eb;
+    --accent-green: #059669;
+    --accent-purple: #7c3aed;
+    --accent-amber: #d97706;
+    --accent-teal: #0d9488;
+    --accent-pink: #db2777;
+    --title-em: #2563eb;
+    --core-bg: linear-gradient(135deg, rgba(37,99,235,0.05), rgba(13,148,136,0.03));
+    --core-border: rgba(37,99,235,0.15);
+    --asset-bg: rgba(0,0,0,0.02);
+    --asset-border: rgba(0,0,0,0.05);
+    --glow-color: rgba(37,99,235,0.05);
+    --grid-color: rgba(37,99,235,0.03);
+    --footer-color: #9ca3af;
+    --nav-bg: #ffffff;
+    --nav-border: rgba(0,0,0,0.08);
+    --nav-active-bg: rgba(37,99,235,0.08);
+    --nav-active-border: rgba(37,99,235,0.3);
+    --nav-active-text: #2563eb;
+    --toggle-bg: #ffffff;
+    --toggle-border: rgba(0,0,0,0.1);
+    --positioning-bg: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(124,58,237,0.04));
+    --positioning-border: rgba(37,99,235,0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { transition: background 0.3s, color 0.3s; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow {
+    position: fixed;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 280px;
+    background: radial-gradient(ellipse, var(--glow-color) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transition: background 0.3s;
+  }
+
+  /* ── CONTROL BAR ── */
+  .control-bar {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--nav-bg);
+    border: 1px solid var(--nav-border);
+    border-radius: 24px;
+    padding: 5px 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .nav-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 18px;
+    padding: 5px 16px;
+    font-size: 0.72rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-btn:hover { color: var(--text); }
+
+  .nav-btn.active {
+    background: var(--nav-active-bg);
+    border-color: var(--nav-active-border);
+    color: var(--nav-active-text);
+    font-weight: 700;
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--border);
+  }
+
+  .theme-toggle {
+    background: transparent;
+    border: none;
+    border-radius: 18px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+  }
+  .theme-toggle:hover { color: var(--text); }
+
+  /* ── PAGES ── */
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 72px 24px 56px;
+    position: relative;
+    z-index: 1;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .page.active {
+    display: block;
+  }
+
+  .page.visible {
+    opacity: 1;
+  }
+
+  /* ── SHARED: HEADER ── */
+  .page-header { margin-bottom: 28px; }
+
+  .label {
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    color: var(--accent-blue);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    transition: color 0.3s;
+  }
+
+  .title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 6px;
+    transition: color 0.3s;
+  }
+
+  .title em {
+    font-style: italic;
+    color: var(--title-em);
+    transition: color 0.3s;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* ── SHARED: CORE MSG / POSITIONING ── */
+  .core-msg, .positioning {
+    margin-top: 18px;
+    padding: 12px 18px;
+    background: var(--core-bg);
+    border: 1px solid var(--core-border);
+    border-left: 3px solid var(--accent-blue);
+    border-radius: 0 8px 8px 0;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .positioning {
+    background: var(--positioning-bg);
+    border-color: var(--positioning-border);
+  }
+
+  .core-msg p, .positioning p {
+    font-size: clamp(0.78rem, 2vw, 0.86rem);
+    color: var(--text-sub);
+    line-height: 1.75;
+    transition: color 0.3s;
+  }
+
+  .core-msg strong, .positioning strong {
+    color: var(--accent-blue);
+    font-weight: 700;
+  }
+
+  /* ── SHARED: SECTION LABEL ── */
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    margin: 28px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── SHARED: CARD BASE ── */
+  .card-base {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  /* ── SHARED: TASK LIST ── */
+  .task-list { list-style: none; padding: 0; }
+  .task-list li {
+    font-size: 0.71rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    padding: 4px 0 4px 14px;
+    position: relative;
+    border-bottom: 1px solid var(--border-subtle);
+    transition: color 0.3s;
+  }
+  .task-list li:last-child { border-bottom: none; }
+  .task-list li::before { content: '›'; position: absolute; left: 0; color: var(--muted); }
+  .task-list li strong { color: var(--text-sub); font-weight: 600; }
+
+  /* ── SHARED: FOOTER ── */
+  .page-footer {
+    text-align: right;
+    margin-top: 24px;
+    font-size: 0.6rem;
+    color: var(--footer-color);
+    letter-spacing: 0.05em;
+    transition: color 0.3s;
+  }
+
+  /* ════════════════════════════
+     PAGE 1: 실행안 (TF Proposal)
+  ════════════════════════════ */
+
+  .phase-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .phase-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .phase-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+  }
+  .ph1::before { background: linear-gradient(90deg, var(--accent-blue), transparent); }
+  .ph2::before { background: linear-gradient(90deg, var(--accent-green), transparent); }
+  .ph3::before { background: linear-gradient(90deg, var(--accent-amber), transparent); }
+
+  .phase-num {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .ph1 .phase-num { color: var(--accent-blue); }
+  .ph2 .phase-num { color: var(--accent-green); }
+  .ph3 .phase-num { color: var(--accent-amber); }
+
+  .phase-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.3;
+    transition: color 0.3s;
+  }
+
+  .phase-desc {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .info-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+  .ic-purple::before { background: var(--accent-purple); }
+  .ic-teal::before { background: var(--accent-teal); }
+
+  .info-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s;
+  }
+
+  .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .dot-purple { background: var(--accent-purple); }
+  .dot-teal { background: var(--accent-teal); }
+
+  .asset-flow { display: flex; flex-direction: column; gap: 6px; }
+  .asset-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 10px;
+    background: var(--asset-bg);
+    border-radius: 6px;
+    border: 1px solid var(--asset-border);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .asset-icon { font-size: 0.8rem; flex-shrink: 0; margin-top: 1px; }
+  .asset-text { font-size: 0.7rem; color: var(--text-muted); line-height: 1.5; transition: color 0.3s; }
+  .asset-text strong { color: var(--text-sub); font-weight: 600; display: block; margin-bottom: 1px; }
+
+  /* ════════════════════════════
+     PAGE 2: 인력 소개 (Portfolio)
+  ════════════════════════════ */
+
+  #page-portfolio { max-width: 1280px; }
+
+  .name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    color: var(--text);
+    letter-spacing: -0.01em;
+    line-height: 1;
+    transition: color 0.3s;
+  }
+
+  .name-sub {
+    font-size: clamp(0.7rem, 2vw, 0.85rem);
+    color: var(--muted);
+    margin-top: 5px;
+    font-weight: 400;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .p-bottom-row { display: contents; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+  .c1::before { background: var(--accent-blue); }
+  .c2::before { background: var(--accent-green); }
+  .c3::before { background: var(--accent-purple); }
+  .c4::before { background: var(--accent-amber); }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .icon {
+    width: 32px; height: 32px;
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .i1 { background: rgba(79,142,247,0.12); }
+  .i2 { background: rgba(52,211,153,0.12); }
+  .i3 { background: rgba(167,139,250,0.12); }
+  .i4 { background: rgba(251,191,36,0.12); }
+
+  [data-theme="light"] .i1 { background: rgba(37,99,235,0.1); }
+  [data-theme="light"] .i2 { background: rgba(5,150,105,0.1); }
+  [data-theme="light"] .i3 { background: rgba(124,58,237,0.1); }
+  [data-theme="light"] .i4 { background: rgba(217,119,6,0.1); }
+
+  .card-title {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+    transition: color 0.3s;
+  }
+
+  .card-title span {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+
+  .cap-block { margin-bottom: 8px; }
+
+  .cap-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card ul { list-style: none; padding: 0; }
+  .card ul li {
+    font-size: clamp(0.68rem, 1.8vw, 0.73rem);
+    color: var(--text-muted);
+    line-height: 1.55;
+    padding-left: 12px;
+    position: relative;
+    margin-bottom: 3px;
+    transition: color 0.3s;
+  }
+  .card ul li::before { content: '›'; position: absolute; left: 0; color: var(--muted); }
+  .card ul li strong { color: var(--text-sub); font-weight: 600; }
+
+  /* ── PRINT ── */
+  @media print {
+    .control-bar { display: none; }
+    .glow { display: none; }
+    body::before { display: none; }
+    .page { padding-top: 32px; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 767px) {
+    .page { padding: 72px 16px 40px; }
+    .phase-row { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .card { padding: 14px 16px; }
+    .control-bar { gap: 4px; padding: 4px 5px; }
+    .nav-btn { padding: 4px 10px; font-size: 0.68rem; }
+  }
+
+  @media (max-width: 1023px) and (min-width: 768px) {
+    .phase-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+
+<!-- ── CONTROL BAR ── -->
+<div class="control-bar">
+  <button class="nav-btn active" id="btn-plan" onclick="switchPage('plan')">실행안</button>
+  <button class="nav-btn" id="btn-portfolio" onclick="switchPage('portfolio')">인력 소개</button>
+  <div class="nav-divider"></div>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="테마 전환">
+    <span id="toggleIcon">☀️</span>
+    <span id="toggleLabel">라이트</span>
+  </button>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE 1: 실행안
+══════════════════════════════ -->
+<div class="page active" id="page-plan">
+  <div class="page-header">
+    <p class="label">Role Proposal · LINE NEXT</p>
+    <h1 class="title">서정호 · <em>AI-Native 개발 실행 방안</em></h1>
+    <p class="subtitle">AI-Native TF 운영 및 게임 개발 · 사업 기여 방안</p>
+    <div class="core-msg">
+      <p>
+        소규모 <strong>AI-Native TF</strong>를 통해 게임을 직접 만들고 출시하는 과정에서,
+        그 방법론과 성과물이 <strong>조직 내 자연스러운 레퍼런스로 축적</strong>됩니다.
+        별도의 교육이나 전사 캠페인 없이도, <strong>결과로 증명하는 방식</strong>으로 AI 활용 문화가 자리잡습니다.
+      </p>
+    </div>
+  </div>
+
+  <div class="section-label">TF 구성 및 게임 개발 파이프라인</div>
+
+  <div class="phase-row">
+    <div class="phase-card ph1">
+      <div class="phase-num">Phase 1 · 검증</div>
+      <div class="phase-title">아이디어 →<br>플레이어블 프로토타입</div>
+      <div class="phase-desc">빠른 가설 검증으로 Go/Stop 결정을 앞당깁니다.</div>
+      <ul class="task-list">
+        <li><strong>1일:</strong> 코어 루프 HTML5 플레이어블 버전 구현</li>
+        <li><strong>1~2주:</strong> AI 목업 아트 포함 플레이어블 빌드</li>
+        <li>데이터 기반 장르/플랫폼 선정 (Sensor Tower 연동)</li>
+        <li>불필요한 개발 리소스 사전 차단</li>
+      </ul>
+    </div>
+
+    <div class="phase-card ph2">
+      <div class="phase-num">Phase 2 · 개발</div>
+      <div class="phase-title">프로토타입 →<br>출시 가능한 게임</div>
+      <div class="phase-desc">AI를 각 공정에 내재화해 소수 인원으로 완성도를 높입니다.</div>
+      <ul class="task-list">
+        <li><strong>개발:</strong> TypeScript + Phaser3 기반 2D 게임 구현</li>
+        <li><strong>아트:</strong> AI 이미지 파이프라인으로 에셋 자체 생산</li>
+        <li><strong>사운드:</strong> AI SFX 엔진&솔루션 활용, 외주 없이 처리</li>
+        <li><strong>출시:</strong> 기획부터 1~2개월 내 런칭 가능</li>
+      </ul>
+    </div>
+
+    <div class="phase-card ph3">
+      <div class="phase-num">Phase 3 · 운영</div>
+      <div class="phase-title">출시 →<br>라이브 서비스</div>
+      <div class="phase-desc">출시 이후 운영 비용을 AI로 구조적으로 줄입니다.</div>
+      <ul class="task-list">
+        <li><strong>다국어:</strong> AI 번역 파이프라인, 13개국 언어 대응</li>
+        <li><strong>CS:</strong> 크롤링 + AI 실시간 감지·대응</li>
+        <li><strong>분석:</strong> 가설 → 추출 → 인사이트 자동화</li>
+        <li><strong>업데이트:</strong> 라이브 지표 기반 콘텐츠 우선순위 결정</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">사업 기여 및 조직 내 자산화</div>
+
+  <div class="two-col">
+    <div class="info-card ic-purple">
+      <div class="info-title">
+        <span class="dot dot-purple"></span>
+        게임 사업 기여
+      </div>
+      <ul class="task-list">
+        <li><strong>플랫폼 연계:</strong> LINE NEXT 플랫폼 강점에 맞는 장르·BM 설계</li>
+        <li><strong>GTM:</strong> 데이터 기반 마켓 진입 전략 수립 및 실행</li>
+        <li><strong>빠른 실험:</strong> 소규모 타이틀로 시장 반응 먼저 검증</li>
+        <li><strong>BM 고도화:</strong> 글로벌 트렌드 기반 수익 모델 설계</li>
+        <li><strong>라이브 ops:</strong> MMORPG 운영 경험 기반 장기 서비스 설계</li>
+      </ul>
+    </div>
+
+    <div class="info-card ic-teal">
+      <div class="info-title">
+        <span class="dot dot-teal"></span>
+        TF 성과의 자연스러운 자산화
+      </div>
+      <div class="asset-flow">
+        <div class="asset-item">
+          <div class="asset-icon">📦</div>
+          <div class="asset-text">
+            <strong>개발 패턴 축적</strong>
+            게임 개발 중 검증된 AI 활용법이 내부 레퍼런스로 남아 다음 프로젝트에서 재사용됩니다.
+          </div>
+        </div>
+        <div class="asset-item">
+          <div class="asset-icon">🔁</div>
+          <div class="asset-text">
+            <strong>파이프라인 재활용</strong>
+            번역·CS·분석 자동화 파이프라인은 다른 팀 타이틀에도 그대로 적용 가능합니다.
+          </div>
+        </div>
+        <div class="asset-item">
+          <div class="asset-icon">📋</div>
+          <div class="asset-text">
+            <strong>성공/실패 기록</strong>
+            개발 과정의 의사결정과 오류가 문서화되어, 조직이 같은 시행착오를 반복하지 않습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">Prepared for LINE NEXT · Confidential · 서정호</div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE 2: 인력 소개
+══════════════════════════════ -->
+<div class="page" id="page-portfolio">
+  <div class="page-header">
+    <p class="label">Capability Overview · Portfolio</p>
+    <h1 class="name">서정호</h1>
+    <p class="name-sub">주요 핵심 역량 및 AI 활용 능력</p>
+    <div class="positioning">
+      <p>
+        게임 사업 전반 <strong>— GTM · 개발 디렉팅 · 서비스 운영 —</strong> 을 실행 가능한 역량을 보유하고 있으며,
+        팀이 생기면 <strong>그 속도와 방법론을 조직 전체로 이식</strong>하는 역할 수행이 가능합니다.
+      </p>
+    </div>
+  </div>
+
+  <main class="portfolio-grid">
+
+    <div class="card c1">
+      <div class="card-head">
+        <div class="icon i1">📈</div>
+        <div class="card-title">사업 및 전략 <span>Business & Strategy</span></div>
+      </div>
+      <div class="cap-block">
+        <div class="cap-label">핵심 역량</div>
+        <ul>
+          <li><strong>GTM:</strong> 데이터 기반 신규/라이브 게임 런칭 전략 수립 및 실행</li>
+          <li><strong>BM 설계:</strong> 글로벌 트렌드 기반 핵심 BM 및 상품 구성</li>
+        </ul>
+      </div>
+      <div class="cap-block">
+        <div class="cap-label">AI 활용</div>
+        <ul>
+          <li>Sensor Tower 연동 AI 시장 분석 자동화 (장르/유사게임/오디언스/시장 규모 등)</li>
+          <li>데이터 기반 의사결정 체계 설계 및 구축</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card c2">
+      <div class="card-head">
+        <div class="icon i2">⚙️</div>
+        <div class="card-title">개발 <span>Development</span></div>
+      </div>
+      <div class="cap-block">
+        <div class="cap-label">핵심 역량</div>
+        <ul>
+          <li><strong>2D 특화:</strong> TypeScript 베이스 고속 개발 및 디렉팅</li>
+          <li><strong>풀사이클:</strong> 기획 → 구현 → 사운드 전 과정 직접 수행</li>
+        </ul>
+      </div>
+      <div class="cap-block">
+        <div class="cap-label">AI 활용</div>
+        <ul>
+          <li><strong>1일:</strong> HTML5 Canvas 코어 루프 시각화</li>
+          <li><strong>1~2주:</strong> 플레이어블 프로토타입 빌드 및 AI 목업 아트로 Go/Stop 의사결정 근거 확보</li>
+          <li><strong>1~2개월:</strong> 완성 게임 출시 가능</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card c3">
+      <div class="card-head">
+        <div class="icon i3">🔧</div>
+        <div class="card-title">서비스 운영 <span>Service & Ops</span></div>
+      </div>
+      <div class="cap-block">
+        <div class="cap-label">핵심 역량</div>
+        <ul>
+          <li>다수 게임 서비스 경험 기반 운영 정책·툴 설계</li>
+        </ul>
+      </div>
+      <div class="cap-block">
+        <div class="cap-label">AI 활용</div>
+        <ul>
+          <li><strong>번역 자동화:</strong> AI 파이프라인으로 13개국 언어 대응</li>
+          <li><strong>CS/모니터링:</strong> 크롤링 + AI 실시간 감지·대응 시스템</li>
+          <li>운영 비용 구조적 절감 및 자동화 레퍼런스 보유</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="p-bottom-row">
+      <div class="card c4">
+        <div class="card-head">
+          <div class="icon i4">📊</div>
+          <div class="card-title">데이터 분석 <span>Analytics</span></div>
+        </div>
+        <div class="cap-block">
+          <div class="cap-label">핵심 역량</div>
+          <ul>
+            <li>지표 추적 고도화 및 지표를 통한 실적 개선</li>
+          </ul>
+        </div>
+        <div class="cap-block">
+          <div class="cap-label">AI 활용</div>
+          <ul>
+            <li><strong>자체 BI:</strong> 인게임/마케팅 데이터 연동 맞춤 솔루션</li>
+            <li><strong>분석 과정 자동화:</strong> 가설 → 추출 → 분석 → 지표 중심의 인사이트 AI 고도화</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div class="page-footer">Prepared for LINE NEXT · Confidential · 서정호</div>
+</div>
+
+<script>
+  // ── 페이지 전환 ──
+  function switchPage(page) {
+    const pages = { plan: 'page-plan', portfolio: 'page-portfolio' };
+    const btns = { plan: 'btn-plan', portfolio: 'btn-portfolio' };
+
+    Object.keys(pages).forEach(key => {
+      const el = document.getElementById(pages[key]);
+      const btn = document.getElementById(btns[key]);
+      if (key === page) {
+        el.classList.add('active');
+        btn.classList.add('active');
+        setTimeout(() => el.classList.add('visible'), 10);
+      } else {
+        el.classList.remove('visible');
+        btn.classList.remove('active');
+        setTimeout(() => el.classList.remove('active'), 260);
+      }
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── 테마 전환 ──
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const next = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    document.getElementById('toggleIcon').textContent = isDark ? '🌙' : '☀️';
+    document.getElementById('toggleLabel').textContent = isDark ? '다크' : '라이트';
+    localStorage.setItem('theme', next);
+  }
+
+  // ── 초기화 ──
+  window.addEventListener('DOMContentLoaded', () => {
+    // 테마 복원
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      if (saved === 'light') {
+        document.getElementById('toggleIcon').textContent = '🌙';
+        document.getElementById('toggleLabel').textContent = '다크';
+      }
+    }
+    // 첫 페이지 페이드인
+    setTimeout(() => {
+      document.getElementById('page-plan').classList.add('visible');
+    }, 10);
+  });
+</script>
+</body>
+</html>
